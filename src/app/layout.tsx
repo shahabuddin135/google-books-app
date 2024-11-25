@@ -29,6 +29,13 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+
+        <footer className="text-center p-2">
+          <p className="text-center text-gray-500 text-sm">
+
+            © 2024 All Rights Reserved SHAHABUDDIN
+          </p>
+        </footer>
       </body>
     </html>
   );

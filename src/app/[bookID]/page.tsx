@@ -1,4 +1,13 @@
 import { Metadata } from "next";
+import Link from "next/link";
+import { Marcellus } from "next/font/google";
+
+const marcellus = Marcellus(
+  {
+    subsets: ["latin"],
+    weight: ["400"]
+  }
+)
 
 // Set metadata for SEO purposes
 export async function generateMetadata({ params }: { params: { bookID: string } }): Promise<Metadata> {
@@ -34,21 +43,29 @@ export default async function BookPage({ params }: { params: { bookID: string } 
     const info = book.volumeInfo;
 
     return (
-      <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-6 mt-8">
-        <h1 className="text-3xl font-bold">{info.title}</h1>
-        <p className="text-gray-500 mt-2">
-          {info.authors ? `By ${info.authors.join(", ")}` : "Unknown Author"}
-        </p>
-        <img
-          src={info.imageLinks?.thumbnail || "/placeholder.jpg"}
-          alt={info.title}
-          className="w-full h-64 object-contain mt-4"
-        />
-         <div className="text-gray-700 mt-10" dangerouslySetInnerHTML={
-          { __html: info.description || "<p>No description available.</p>",}
-        }></div>
-        <p className="text-gray-500 mt-4">Published: {info.publishedDate || "Unknown"}</p>
-      </div>
+      <main className={`${marcellus.className}`}>
+
+        <div className="max-w-3xl mx-auto bg-white shadow-lg h-auto rounded-lg p-6 mt-8">
+          <h1 className="text-3xl font-bold">{info.title}</h1>
+          <p className="text-gray-500 mt-2">
+            {info.authors ? `By ${info.authors.join(", ")}` : "Unknown Author"}
+          </p>
+          <img
+            src={info.imageLinks?.thumbnail || "/placeholder.jpg"}
+            alt={info.title}
+            className="w-full h-64 object-contain mt-4"
+          />
+          <div className="text-gray-700 mt-10" dangerouslySetInnerHTML={
+            { __html: info.description || "<p>No description available.</p>", }
+          }></div>
+          <p className="text-gray-500 mt-4">Published: {info.publishedDate || "Unknown"}</p>
+          <button className="p-2 bg-blue-600 rounded-lg text-white my-5 hover:scale-105 active:scale-100 transition-all">
+            <Link href="/">
+              Take Me Back
+            </Link>
+          </button>
+        </div>
+      </main>
     );
   } catch (error) {
     console.error(error);

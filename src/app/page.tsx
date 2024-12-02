@@ -1,5 +1,15 @@
 import BooksClient from './components/BooksClient';
 
+import { Marcellus } from "next/font/google";
+
+const marcellus = Marcellus(
+  {
+    subsets: ["latin"],
+    weight: ["400"]
+  }
+)
+
+
 // Fetch initial data on the server
 async function fetchBooksData() {
   const response = await fetch(
@@ -14,7 +24,7 @@ export default async function Home() {
   const initialBooks = await fetchBooksData();
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
+    <div className={`min-h-screen bg-gray-100 p-6 ${marcellus.className}`}>
       <h1 className="text-3xl font-bold text-center mb-6">Google Books Search</h1>
      
       <BooksClient initialBooks={initialBooks} />
